@@ -39,7 +39,7 @@
         <!-- Tampilkan gambar lama jika ada -->
         @if($product->image)
           <div class="m-3">
-            <img src="{{ asset('storage/products/' . $product->image) }}" alt="Gambar Produk" class="img-thumbnail" width="200">
+          <td><img src="{{ asset('storage/products/'.$product->image) }}" alt="Gambar Produk" class="product-image"></td>
           </div>
         @endif
 

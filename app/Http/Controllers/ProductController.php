@@ -71,7 +71,7 @@ class ProductController extends Controller
     {
         // Validasi form
         $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+            'image' => 'fillable|image|mimes:jpeg,jpg,png|max:2048',
             'title' => 'required|min:5',
             'size' => 'required',
             'description' => 'required|min:10',

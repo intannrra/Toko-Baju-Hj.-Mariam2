@@ -17,7 +17,7 @@
     <div class="container mt-3">
         <h4 class="text-center mt-3">Detail Produk</h4>
         <div class="card">
-            <img src="{{ asset('storage/products/' . $product->image) }}" class="card-img-top product-image" alt="Gambar Produk">
+        <td><img src="{{ asset('storage/products/'.$product->image) }}" alt="Gambar Produk" class="product-image"></td>
             <div class="card-body">
                 <h5 class="card-title">{{ $product->title }}</h5>
                 <p class="card-text">Ukuran: {{ $product->size }}</p>
