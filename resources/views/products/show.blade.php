@@ -11,21 +11,59 @@
             height: auto;  /* Tinggi otomatis agar proporsional */
             object-fit: cover; /* Agar gambar tidak terdistorsi */
         }
+        /* Style untuk Sidebar */
+        #sidebar {
+            height: 100vh;
+            width: 250px;
+            background-color: #343a40;
+            padding-top: 20px;
+            position: fixed;
+        }
+
+        #sidebar .nav-link {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        #sidebar .nav-link:hover {
+            background-color: #495057;
+        }
+
+        #content {
+            margin-left: 250px;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
-    <div class="container mt-3">
-        <h4 class="text-center mt-3">Detail Produk</h4>
-        <div class="card">
-        <td><img src="{{ asset('storage/products/'.$product->image) }}" alt="Gambar Produk" class="product-image"></td>
-            <div class="card-body">
-                <h5 class="card-title">{{ $product->title }}</h5>
-                <p class="card-text">Ukuran: {{ $product->size }}</p>
-                <p class="card-text">Deskripsi: {{ $product->description }}</p>
-                <p class="card-text">Harga: Rp {{ number_format($product->price, 0, ',', '.') }}</p>
-                <p class="card-text">Stok: {{ $product->stock }}</p>
-                <p class="card-text">Id: {{ $product->id }}</p>
-                <a href="{{ route('products.index') }}" class="btn btn-primary">Kembali</a>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <h4 class="text-light text-center">Dashboard</h4>
+            <nav class="nav flex-column">
+                <a class="nav-link" href="{{ route('products.index') }}">Produk</a>
+                <a class="nav-link" href="transactions">Transaksi</a>
+                <a class="nav-link" href="logouts">Logout</a>
+            </nav>
+        </div>
+
+        <!-- Content -->
+        <div id="content" class="w-100">
+            <div class="container mt-3">
+                <h4 class="text-center mt-3">Detail Produk</h4>
+                <div class="card">
+                    <img src="{{ asset('storage/products/'.$product->image) }}" alt="Gambar Produk" class="product-image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $product->title }}</h5>
+                        <p class="card-text">Ukuran: {{ $product->size }}</p>
+                        <p class="card-text">Deskripsi: {{ $product->description }}</p>
+                        <p class="card-text">Harga: Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                        <p class="card-text">Stok: {{ $product->stock }}</p>
+                        <p class="card-text">Id: {{ $product->id }}</p>
+                        <a href="{{ route('products.index') }}" class="btn btn-primary">Kembali</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

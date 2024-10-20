@@ -30,10 +30,10 @@ class ProductController extends Controller
             'image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'title' => 'required|min:5',
             'size' => 'required',
-            'description' => 'required|min:10',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
-            'id' => 'required|numeric'
+            'description' => 'required|min:10',
+      
         ]);
 
         // Upload dan simpan gambar
@@ -45,10 +45,10 @@ class ProductController extends Controller
             'image' => $image->hashName(),
             'title' => $request->title,
             'size' => $request->size,
-            'description' => $request->description,
             'price' => $request->price,
             'stock' => $request->stock,
-            'id' => $request->id
+            'description' => $request->description,
+
         ]);
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil disimpan.');
@@ -71,13 +71,13 @@ class ProductController extends Controller
     {
         // Validasi form
         $request->validate([
-            'image' => 'fillable|image|mimes:jpeg,jpg,png|max:2048',
+            'image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'title' => 'required|min:5',
             'size' => 'required',
-            'description' => 'required|min:10',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
-            'id' => 'required|numeric'
+            'description' => 'required|min:10',
+
         ]);
 
         // Cek apakah ada gambar baru yang diupload
@@ -95,12 +95,13 @@ class ProductController extends Controller
 
         // Update data produk
         $product->update([
+            'image' => $image->hashName(),
             'title' => $request->title,
             'size' => $request->size,
-            'description' => $request->description,
             'price' => $request->price,
             'stock' => $request->stock,
-            'id' => $request->id,
+            'description' => $request->description,
+
         ]);
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil diupdate.');
