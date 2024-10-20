@@ -1,10 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 
 // Route untuk halaman home
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::resource('dashboard', \App\Http\Controllers\DashboardController::class);
 
 // Route untuk resource products
 Route::resource('products', \App\Http\Controllers\ProductController::class);
+
+Route::resource('transactions', TransactionController::class);
