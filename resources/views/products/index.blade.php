@@ -1,105 +1,141 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <!-- Link Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Style untuk Sidebar */
+    #sidebar {
+      height: 100vh;
+      width: 250px;
+      background-color: #343a40;
+      padding-top: 20px;
+      position: fixed;
+    }
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    #sidebar .nav-link {
+      color: #ffffff;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
 
-    <title>Produk</title>
-    <style>
-      /* Untuk membuat gambar memiliki ukuran yang sama */
-      .product-image {
-        width: 100px;
-        height: 100px;
-        object-fit: cover; /* Agar gambar tidak terdistorsi */
-      }
+    #sidebar .nav-link:hover {
+      background-color: #495057;
+    }
 
-      /* Responsive table for small screens */
-      @media (max-width: 576px) {
-        .product-image {
-          width: 80px;
-          height: 80px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <h2 class="text-center mt-3">Daftar Produk</h2>
-    <div class="container mt-3">
+    #content {
+      margin-left: 250px;
+      padding: 20px;
+    }
 
-    <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">Tambah Produk</a>
+    /* Style untuk konten */
+    h1 {
+      color: #333;
+    }
 
-    <table class="table table-bordered table-responsive-sm">
-      <thead class="text-center">
-        <tr>
-          <th scope="col">Gambar</th>
-          <th scope="col">Nama</th>
-          <th scope="col">Ukuran</th>
-          <th scope="col">Harga</th>
-          <th scope="col">Stok</th>
-          <th scope="col">Id</th>
-          <th scope="col">Aksi</th>
-        </tr>
-      </thead>
-      <tbody class="text-center">
-        @forelse ($products as $product)
-        <tr>
-          <!-- Gambar Produk dengan ukuran tetap 100x100px -->
-          <td><img src="{{ asset('storage/products/'.$product->image) }}" alt="Gambar Produk" class="product-image"></td>
-          <td>{{$product->title}}</td>
-          <td>{{$product->size}}</td>
-          <td class="price">Rp {{ number_format($product->price, 0, ',', '.') }}</td>
-          <td>{{$product->stock}}</td>
-          <td>{{$product->id}}</td>
-          <td>
-            <a href="{{ route('products.show', $product->id) }}" class="btn btn-success btn-sm">Lihat</a>
-            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">Edit</a>
-            <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini?');">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-            </form>
-          </td>
-        </tr>
-        @empty
-        <tr>
-          <td colspan="7" class="text-center">Data Belum Tersedia</td>
-        </tr>
-        @endforelse
-      </tbody>
-    </table>
+    /* Style untuk tabel */
+    .rounded-table {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style untuk informasi toko */
+    .store-info {
+      background-color: #e9ecef; /* Warna latar belakang yang lebih menarik */
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan untuk efek 3D */
+    }
+  </style>
+</head>
+<body>
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <h4 class="text-light text-center">Dashboard</h4>
+      <nav class="nav flex-column">
+        <a class="nav-link" href="products">Produk</a> <!-- Link ke halaman produk -->
+        <a class="nav-link" href="transactions">Transaksi</a>
+        <a class="nav-link" href="logouts">Logout</a>
+      </nav>
     </div>
 
-    <!-- JavaScript for Rupiah Format -->
-    <script>
-      // Fungsi untuk format angka menjadi rupiah
-      function formatRupiah(angka) {
-        var number_string = angka.toString().replace(/[^,\d]/g, ''),
-            split = number_string.split(','),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+    <!-- Content -->
+    <div id="content" class="w-100">
+      <!-- Informasi Toko -->
+      <div class="store-info">
+        <h2>Toko Serba Ada</h2>
+        <p>Toko kami menyediakan berbagai macam produk berkualitas dengan harga terjangkau.</p>
+        <p>Alamat: Jl. Contoh No. 123, Jakarta</p>
+      </div>
 
-        // tambahkan titik jika yang diinput sudah menjadi angka ribuan
-        if (ribuan) {
-          var separator = sisa ? '.' : '';
-          rupiah += separator + ribuan.join('.');
-        }
+      <h3>Daftar Produk</h3>
 
-        rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
-        return 'Rp ' + rupiah;
-      }
+      <div class="container mt-3">
+        <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">
+          <i class="fas fa-plus"></i> Tambah Produk
+        </a>
 
-      // Mengambil elemen harga dan menerapkan format Rupiah
-      document.querySelectorAll('.price').forEach(function(el) {
-        el.innerHTML = formatRupiah(el.innerHTML.replace('Rp ', '').replace(/\./g, ''));
-      });
-    </script>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover table-striped rounded-table">
+            <thead class="table-dark text-center">
+              <tr>
+                <th scope="col">Gambar</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Ukuran</th>
+                <th scope="col">Harga</th>
+                <th scope="col">Stok</th>
+                <th scope="col">Id</th>
+                <th scope="col">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              @forelse ($products as $product)
+              <tr>
+                <td><img src="{{ asset('storage/products/'.$product->image) }}" alt="Gambar Produk" class="product-image" style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px;"></td>
+                <td>{{$product->title}}</td>
+                <td>{{$product->size}}</td>
+                <td class="price">Rp {{ number_format($product->price, 0, ',', '.') }}</td>
+                <td>{{$product->stock}}</td>
+                <td>{{$product->id}}</td>
+                <td>
+                  <a href="{{ route('products.show', $product->id) }}" class="btn btn-success btn-sm">
+                    <i class="fas fa-eye"></i> Lihat
+                  </a>
+                  <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">
+                    <i class="fas fa-edit"></i> Edit
+                  </a>
+                  <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm">
+                      <i class="fas fa-trash-alt"></i> Hapus
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              @empty
+              <tr>
+                <td colspan="7" class="text-center">Data Belum Tersedia</td>
+              </tr>
+              @endforelse
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!-- Optional JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  </body>
+  <!-- Link Bootstrap JS and Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  <!-- Optional: Include Font Awesome for icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
 </html>
