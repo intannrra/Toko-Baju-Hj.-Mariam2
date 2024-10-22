@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Support\Str;  // Tambahkan ini untuk generate random string
 
 class ProductController extends Controller
 {
@@ -33,22 +34,27 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
             'description' => 'required|min:10',
-      
         ]);
+
+        // Buat custom ID berdasarkan huruf depan produk dan random string
+        $firstLetter = strtoupper(substr($request->title, 0, 1));
+        $custom_id = $firstLetter;
+
 
         // Upload dan simpan gambar
         $image = $request->file('image');
-        $image->storeAs('products', $image->hashName(), 'public');
+        $imageName = $image->hashName(); // Gunakan hash name agar tidak terjadi duplikasi nama
+        $image->storeAs('products', $imageName, 'public');
 
         // Simpan data produk ke database
         Product::create([
-            'image' => $image->hashName(),
-            'title' => $request->title,
-            'size' => $request->size,
-            'price' => $request->price,
-            'stock' => $request->stock,
-            'description' => $request->description,
-
+            'custom_id' => $custom_id,
+            'image' => $imageName,  // Gunakan nama file yang sudah di-hash
+            'title' => $request->input('title'),
+            'size' => $request->input('size'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'stock' => $request->input('stock')
         ]);
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil disimpan.');
@@ -71,37 +77,36 @@ class ProductController extends Controller
     {
         // Validasi form
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'image' => 'sometimes|image|mimes:jpeg,jpg,png|max:2048', // 'sometimes' digunakan untuk optional
             'title' => 'required|min:5',
             'size' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
             'description' => 'required|min:10',
-
         ]);
 
         // Cek apakah ada gambar baru yang diupload
         if ($request->hasFile('image')) {
-            // Hapus gambar lama
+            // Hapus gambar lama jika ada
             if ($product->image) {
                 \Storage::delete('public/products/' . $product->image);
             }
 
             // Simpan gambar baru
             $image = $request->file('image');
-            $image->storeAs('products', $image->hashName(), 'public');
-            $product->image = $image->hashName();
+            $imageName = $image->hashName(); // Gunakan hash name untuk gambar baru
+            $image->storeAs('products', $imageName, 'public');
+            $product->image = $imageName;
         }
 
         // Update data produk
         $product->update([
-            'image' => $image->hashName(),
             'title' => $request->title,
             'size' => $request->size,
             'price' => $request->price,
             'stock' => $request->stock,
             'description' => $request->description,
-
+            'image' => $product->image, // tetap gunakan gambar lama jika tidak ada gambar baru
         ]);
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil diupdate.');

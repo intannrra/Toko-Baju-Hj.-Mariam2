@@ -138,12 +138,8 @@
                     <div class="invalid-feedback">Deskripsi wajib diisi.</div>
                   </div>
 
-                  <!-- Input id -->
-                  <div class="form-floating mb-3">
-                    <input type="number" class="form-control" name="id" id="floatingId" placeholder="Id" value="{{ old('id', $product->id) }}" required>
-                    <label for="floatingId">ID Produk</label>
-                    <div class="invalid-feedback">ID produk wajib diisi.</div>
-                  </div>
+                  <!-- Input hidden untuk custom_id -->
+                <input type="hidden" name="custom_id" id="custom_id" value="{{ old('custom_id') }}">
 
                   <!-- Tombol submit dan batal -->
                   <div class="text-center">

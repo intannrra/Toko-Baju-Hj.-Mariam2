@@ -81,7 +81,7 @@
 
                 <!-- Form untuk menambah produk -->
                 <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data" novalidate>
-                  @csrf  <!-- Token CSRF wajib untuk keamanan Laravel -->
+                @csrf  <!-- Token CSRF wajib untuk keamanan Laravel -->
 
                   <!-- Input gambar -->
                   <div class="mb-3">
@@ -125,12 +125,8 @@
                     <div class="invalid-feedback">Deskripsi wajib diisi.</div>
                   </div>
 
-                  <!-- Input id -->
-                  <div class="form-floating mb-3">
-                    <input type="number" class="form-control" name="id" id="floatingId" placeholder="Id" value="{{ old('id') }}" required>
-                    <label for="floatingId">ID Produk</label>
-                    <div class="invalid-feedback">ID produk wajib diisi.</div>
-                  </div>
+                  <!-- Input hidden untuk custom_id -->
+                <input type="hidden" name="custom_id" id="custom_id" value="{{ old('custom_id') }}">
 
                   <!-- Tombol submit dan reset -->
                   <div class="text-center">

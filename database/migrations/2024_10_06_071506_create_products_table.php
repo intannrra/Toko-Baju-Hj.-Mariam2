@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id(); // id sebagai primary key dan auto increment
+            $table->string('custom_id')->primary(); // Menggunakan custom_id sebagai primary key
             $table->string('image');
             $table->string('title');
             $table->string('size');
@@ -20,7 +20,6 @@ return new class extends Migration
             $table->bigInteger('price');
             $table->integer('stock')->default(0);
             $table->timestamps();
-
         });
     }
 

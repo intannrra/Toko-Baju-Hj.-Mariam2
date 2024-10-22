@@ -70,7 +70,7 @@
     <div id="content" class="w-100">
       <!-- Informasi Toko -->
       <div class="store-info">
-        <h2>Toko Serba Ada</h2>
+        <h2>Toko Baju Hj. Mariam</h2>
         <p>Toko kami menyediakan berbagai macam produk berkualitas dengan harga terjangkau.</p>
         <p>Alamat: Jl. Contoh No. 123, Jakarta</p>
       </div>
@@ -103,7 +103,7 @@
                 <td>{{$product->size}}</td>
                 <td class="price">Rp {{ number_format($product->price, 0, ',', '.') }}</td>
                 <td>{{$product->stock}}</td>
-                <td>{{$product->id}}</td>
+                <td>{{$product->custom_id}}</td>
                 <td>
                   <a href="{{ route('products.show', $product->id) }}" class="btn btn-success btn-sm">
                     <i class="fas fa-eye"></i> Lihat
