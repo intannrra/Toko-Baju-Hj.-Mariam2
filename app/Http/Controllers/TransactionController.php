@@ -1,80 +1,87 @@
 <?php
 
-// app/Http/Controllers/TransactionController.php
-
 namespace App\Http\Controllers;
 
-use App\Models\Transaction;
-use App\Models\Product; // Jika Anda memiliki model Product
 use Illuminate\Http\Request;
+use App\Models\Transaction;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class TransactionController extends Controller
 {
-    public function index()
+    // Menampilkan daftar transaksi
+    public function index(): View
     {
-        $transactions = Transaction::with(['product', 'user'])->get();
+        $transactions = Transaction::latest()->paginate(10);
         return view('transactions.index', compact('transactions'));
     }
 
-    public function create()
+    // Menampilkan form untuk membuat transaksi baru
+    public function create(): View
     {
-        $products = Product::all(); // Ambil semua produk untuk dipilih
-        return view('transactions.create', compact('products'));
+        return view('transactions.create');
     }
 
-    public function store(Request $request)
+    // Menyimpan data transaksi baru
+    public function store(Request $request): RedirectResponse
     {
+        // Validasi form
         $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:1',
+            'user' => 'required',
+            'product' => 'required',
+            'total' => 'required|numeric',
+            'price' => 'required|numeric',
         ]);
 
-        $product = Product::find($request->product_id);
-        $totalPrice = $product->price * $request->quantity;
-
+        // Simpan data transaksi ke database
         Transaction::create([
-            'user_id' => $request->user_id,
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity,
-            'total_price' => $totalPrice,
+            'user' => $request->user,
+            'product' => $request->product,
+            'total' => $request->total,
+            'price' => $request->price,
         ]);
 
-        return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil ditambahkan.');
+        return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil disimpan.');
     }
 
-    public function edit($id)
+    // Menampilkan detail transaksi berdasarkan ID
+    public function show(Transaction $transaction): View
     {
-        $transaction = Transaction::findOrFail($id);
-        $products = Product::all(); // Ambil semua produk untuk dipilih
-        return view('transactions.edit', compact('transaction', 'products'));
+        return view('transactions.show', compact('transaction'));
     }
 
-    public function update(Request $request, $id)
+    // Menampilkan form untuk mengedit transaksi berdasarkan ID
+    public function edit(Transaction $transaction): View
     {
+        return view('transactions.edit', compact('transaction'));
+    }
+
+    // Mengupdate data transaksi yang ada
+    public function update(Request $request, Transaction $transaction): RedirectResponse
+    {
+        // Validasi form
         $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:1',
+            'user' => 'required',
+            'product' => 'required',
+            'total' => 'required|numeric',
+            'price' => 'required|numeric',
         ]);
 
-        $transaction = Transaction::findOrFail($id);
-        $product = Product::find($request->product_id);
-        $totalPrice = $product->price * $request->quantity;
-
+        // Update data transaksi
         $transaction->update([
-            'user_id' => $request->user_id,
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity,
-            'total_price' => $totalPrice,
+            'user' => $request->user,
+            'product' => $request->product,
+            'total' => $request->total,
+            'price' => $request->price,
         ]);
 
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil diupdate.');
     }
 
-    public function destroy($id)
+    // Menghapus transaksi berdasarkan ID
+    public function destroy(Transaction $transaction): RedirectResponse
     {
-        $transaction = Transaction::findOrFail($id);
+        // Hapus data transaksi dari database
         $transaction->delete();
 
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil dihapus.');

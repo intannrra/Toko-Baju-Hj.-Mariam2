@@ -87,7 +87,7 @@
             <thead class="table-dark text-center">
               <tr>
                 <th scope="col">Gambar</th>
-                <th scope="col">Nama</th>
+                <th scope="col">Nama Barang</th>
                 <th scope="col">Ukuran</th>
                 <th scope="col">Harga</th>
                 <th scope="col">Stok</th>
