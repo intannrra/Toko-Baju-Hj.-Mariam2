@@ -60,7 +60,7 @@
                         <p class="card-text">Deskripsi: {{ $product->description }}</p>
                         <p class="card-text">Harga: Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                         <p class="card-text">Stok: {{ $product->stock }}</p>
-                        <p class="card-text">Id: {{ $product->custom_id }}</p>
+                        <p class="card-text">Id: {{ $product->id }}</p>
                         <a href="{{ route('products.index') }}" class="btn btn-primary">Kembali</a>
                     </div>
                 </div>

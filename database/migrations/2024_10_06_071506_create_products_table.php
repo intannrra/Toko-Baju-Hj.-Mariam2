@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->string('custom_id')->primary(); // Menggunakan custom_id sebagai primary key
+            $table->id(); // Menggunakan custom_id sebagai primary key
             $table->string('image');
             $table->string('title');
             $table->string('size');

@@ -125,9 +125,6 @@
                     <div class="invalid-feedback">Deskripsi wajib diisi.</div>
                   </div>
 
-                  <!-- Input hidden untuk custom_id -->
-                <input type="hidden" name="custom_id" id="custom_id" value="{{ old('custom_id') }}">
-
                   <!-- Tombol submit dan reset -->
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary">Simpan Produk</button>

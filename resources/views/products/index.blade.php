@@ -103,7 +103,7 @@
                 <td>{{$product->size}}</td>
                 <td class="price">Rp {{ number_format($product->price, 0, ',', '.') }}</td>
                 <td>{{$product->stock}}</td>
-                <td>{{$product->custom_id}}</td>
+                <td>{{$product->id}}</td>
                 <td>
                   <a href="{{ route('products.show', $product->id) }}" class="btn btn-success btn-sm">
                     <i class="fas fa-eye"></i> Lihat
