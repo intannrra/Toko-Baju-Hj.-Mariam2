@@ -82,7 +82,7 @@
                                 @forelse ($transactions as $transaction)
                                 <tr>
                                     <td>{{$transaction->id}}</td>
-                                    <td>{{$transaction->user}}</td>
+                                    <td>{{$transaction->user_id}}</td>
                                     <td>{{$transaction->product}}</td>
                                     <td>{{$transaction->total}}</td>
                                     <td class="price">Rp {{ number_format($transaction->price, 0, ',', '.') }}</td>

@@ -27,18 +27,18 @@ class TransactionController extends Controller
     {
         // Validasi form
         $request->validate([
-            'user' => 'required',
-            'product' => 'required',
-            'total' => 'required|numeric',
-            'price' => 'required|numeric',
+            'user_id' => 'required|string', // Pastikan user_id diisi dan tipe string
+            'product' => 'required|string',  // Pastikan product diisi dan tipe string
+            'total' => 'required|numeric',    // Pastikan total diisi dan tipe numerik
+            'price' => 'required|numeric',    // Pastikan price diisi dan tipe numerik
         ]);
 
         // Simpan data transaksi ke database
         Transaction::create([
-            'user' => $request->user,
-            'product' => $request->product,
-            'total' => $request->total,
-            'price' => $request->price,
+            'user_id' => $request->input('user_id'), // Ambil user_id dari form input
+            'product' => $request->input('product'),   // Ambil product dari form input
+            'total' => $request->input('total'),       // Ambil total dari form input
+            'price' => $request->input('price'),       // Ambil price dari form input
         ]);
 
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil disimpan.');
@@ -61,18 +61,18 @@ class TransactionController extends Controller
     {
         // Validasi form
         $request->validate([
-            'user' => 'required',
-            'product' => 'required',
+            'user_id' => 'required|string',
+            'product' => 'required|string',
             'total' => 'required|numeric',
             'price' => 'required|numeric',
         ]);
 
         // Update data transaksi
         $transaction->update([
-            'user' => $request->user,
-            'product' => $request->product,
-            'total' => $request->total,
-            'price' => $request->price,
+            'user_id' => $request->input('user_id'),
+            'product' => $request->input('product'),
+            'total' => $request->input('total'),
+            'price' => $request->input('price'),
         ]);
 
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil diupdate.');

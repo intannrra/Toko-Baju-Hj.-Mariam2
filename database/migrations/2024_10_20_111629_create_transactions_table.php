@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id(); // id sebagai primary key dan auto increment
-            $table->text('user');
-            $table->text('product');
+            $table->string('user_id'); // Kolom user_id diisi manual, tipe string atau bisa integer jika ID numerik
+            $table->string('product'); // Tabel produk jika ada, atau bisa disesuaikan
             $table->integer('total');
-            $table->bigInteger('price');
+            $table->decimal('price', 15, 2); // Harga dengan presisi dua angka di belakang koma
             $table->timestamps();
-
         });
     }
 

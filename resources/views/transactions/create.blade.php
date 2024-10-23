@@ -85,8 +85,8 @@
 
                   <!-- Input user -->
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" name="user" id="floatingUser" placeholder="User" value="{{ old('user') }}" required>
-                    <label for="floatingUser">User</label>
+                    <input type="text" class="form-control" name="user_id" id="floatingUser" placeholder="Id Customer" value="{{ old('user_id') }}" required>
+                    <label for="floatingUser">Id User</label>
                     <div class="invalid-feedback">User wajib diisi.</div>
                   </div>
 

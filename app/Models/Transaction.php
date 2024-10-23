@@ -12,7 +12,7 @@ class Transaction extends Model
     protected $table = 'transactions';
 
     protected $fillable = [
-        'user',
+        'user_id',
         'product',
         'total',
         'price',
