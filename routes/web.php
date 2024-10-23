@@ -8,7 +8,4 @@ use App\Http\Controllers\TransactionController;
 // Route untuk halaman home
 Route::resource('dashboard', \App\Http\Controllers\DashboardController::class);
 
-// Route untuk resource products
-Route::resource('products', \App\Http\Controllers\ProductController::class);
-
 Route::resource('transactions', \App\Http\Controllers\TransactionController::class);
