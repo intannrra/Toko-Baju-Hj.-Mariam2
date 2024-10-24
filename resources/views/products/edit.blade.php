@@ -53,12 +53,13 @@
 </head>
 <body>
   <div class="d-flex">
-    <!-- Sidebar -->
-    <div id="sidebar">
-      <h4 class="text-light text-center">Dashboard</h4>
+   <!-- Sidebar -->
+   <div id="sidebar">
       <nav class="nav flex-column">
-        <a class="nav-link" href="products">Produk</a>
+      <a class="nav-link" href="dashboard">Dashboard</a>
+        <a class="nav-link" href="products">Produk</a> <!-- Link ke halaman produk -->
         <a class="nav-link" href="transactions">Transaksi</a>
+        <a class="nav-link" href="pesanans">Pesanan</a>
         <a class="nav-link" href="logouts">Logout</a>
       </nav>
     </div>

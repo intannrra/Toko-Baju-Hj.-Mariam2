@@ -47,7 +47,6 @@ class ProductController extends Controller
 
         // Simpan data produk ke database
         Product::create([
-            'custom_id' => $custom_id,
             'image' => $imageName,  // Gunakan nama file yang sudah di-hash
             'title' => $request->input('title'),
             'size' => $request->input('size'),

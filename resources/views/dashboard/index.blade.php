@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+
   <!-- Link Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -40,10 +40,12 @@
   <div class="d-flex">
     <!-- Sidebar -->
     <div id="sidebar">
-      <h4 class="text-light text-center">Dashboard</h4>
+
       <nav class="nav flex-column">
+        <a class="nav-link" href="dashboard">Dashboard</a>
         <a class="nav-link" href="products">Produk</a>
         <a class="nav-link" href="transactions">Transaksi</a>
+        <a class="nav-link" href="pesanans">Pesanan</a>
         <a class="nav-link" href="logouts">Logout</a>
       </nav>
     </div>

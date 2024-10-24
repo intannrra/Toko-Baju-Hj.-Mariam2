@@ -58,23 +58,17 @@
   <div class="d-flex">
     <!-- Sidebar -->
     <div id="sidebar">
-      <h4 class="text-light text-center">Dashboard</h4>
       <nav class="nav flex-column">
+      <a class="nav-link" href="dashboard">Dashboard</a>
         <a class="nav-link" href="products">Produk</a> <!-- Link ke halaman produk -->
         <a class="nav-link" href="transactions">Transaksi</a>
+        <a class="nav-link" href="pesanans">Pesanan</a>
         <a class="nav-link" href="logouts">Logout</a>
       </nav>
     </div>
 
     <!-- Content -->
     <div id="content" class="w-100">
-      <!-- Informasi Toko -->
-      <div class="store-info">
-        <h2>Toko Baju Hj. Mariam</h2>
-        <p>Toko kami menyediakan berbagai macam produk berkualitas dengan harga terjangkau.</p>
-        <p>Alamat: Jl. Contoh No. 123, Jakarta</p>
-      </div>
-
       <h3>Daftar Produk</h3>
 
       <div class="container mt-3">
