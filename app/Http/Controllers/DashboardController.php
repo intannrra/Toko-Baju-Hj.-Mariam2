@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index()
-    {
-        // Data yang ingin ditampilkan pada dashboard
-        $data = [
-            'totalUsers' => 100,
-            'totalOrders' => 50,
-        ];
+{
+    $data = [
+        'title' => 'Dashboard',
+        'description' => 'Selamat datang',
+    ];
 
-        return view('dashboard.index', compact('data'));
-    }
+    return view('dashboard.index', compact('data'));
+}
+
 }
