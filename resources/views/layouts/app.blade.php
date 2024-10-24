@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,14 +15,28 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Log In</a></li>
-            </ul>
+        <ul class="navbar-nav ml-auto">
+    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Products</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
+
+    @guest
+        <li class="nav-item"><a class="nav-link" href="{{ route('auth.login') }}">Log In</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('auth.register') }}">Register</a></li>
+    @else
+        <li class="nav-item">
+            <a class="nav-link" href="#"
+               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+               Logout
+            </a>
+        </li>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+    @endguest
+</ul>
         </div>
     </nav>
 
