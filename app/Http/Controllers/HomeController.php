@@ -8,6 +8,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('homes.home'); // Pastikan view ini ada
+        return view('homes.home'); // Pastikan ini sesuai dengan lokasi view Anda
     }
 }
