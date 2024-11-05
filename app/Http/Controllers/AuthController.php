@@ -23,15 +23,19 @@ class AuthController extends Controller
     // Proses login
     public function login(Request $request)
     {
+        // Validasi input
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
+        // Mencoba otentikasi
         if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->route('home')->with('success', 'Login berhasil.'); // Redirect ke halaman home setelah login
+            // Setelah login sukses, redirect ke halaman utama
+            return redirect()->route('homes.home')->with('success', 'Login berhasil.'); 
         }
 
+        // Jika login gagal
         return back()->withErrors([
             'email' => 'Email atau password salah.',
         ])->withInput();
@@ -54,13 +58,15 @@ class AuthController extends Controller
             'password' => bcrypt($request->password), // Enkripsi password
         ]);
 
-        return redirect()->route('auth.login')->with('success', 'Pendaftaran berhasil. Silakan login.'); // Redirect ke halaman login
+        // Redirect ke halaman login setelah pendaftaran sukses
+        return redirect()->route('auth.login')->with('success', 'Pendaftaran berhasil. Silakan login.');
     }
 
     // Proses logout
     public function logout()
     {
         Auth::logout(); // Logout pengguna
-        return redirect()->route('auth.login')->with('success', 'Anda telah keluar.'); // Redirect ke halaman login setelah logout
+        // Redirect ke halaman login setelah logout
+        return redirect()->route('auth.login')->with('success', 'Anda telah keluar.'); 
     }
 }
